@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Table, Button } from 'semantic-ui-react';
+import { Table, Button, Confirm } from 'semantic-ui-react';
 import styles from './FileLoader.scss';
 import SpacedGroup from './common/SpacedGroup';
 import PlayerChiclet from './common/PlayerChiclet';
@@ -12,10 +12,15 @@ import * as timeUtils from '../utils/time';
 const path = require('path');
 
 export default class FileRow extends Component {
+  state = {
+    deleteOpen: false
+  }
+
   static propTypes = {
     file: PropTypes.object.isRequired,
     playFile: PropTypes.func.isRequired,
     gameProfileLoad: PropTypes.func.isRequired,
+    deleteFile: PropTypes.func.isRequired,
   };
 
   playFile = () => {
@@ -31,6 +36,17 @@ export default class FileRow extends Component {
 
     this.props.gameProfileLoad(fileGame);
   };
+
+  deleteFile = () => {
+    const file = this.props.file || {};
+
+    this.setState({ deleteOpen: false });
+    this.props.deleteFile(file);
+    this.props.renderFiles(this.props.files);
+  }
+
+  openDeleteConfirmation = () => this.setState({ deleteOpen: true })
+  closeDeleteConfirmation = () => this.setState({ deleteOpen: false })
 
   generatePlayCell() {
     return (
@@ -175,8 +191,20 @@ export default class FileRow extends Component {
             basic={true}
             icon="bar chart"
             onClick={this.viewStats}
-          />
+            />
         </Link>
+        <Button
+          circular={true}
+          inverted={true}
+          size="tiny"
+          basic={true}
+          icon="trash"
+          onClick={this.openDeleteConfirmation}
+          />
+        <Confirm
+          open={this.state.deleteOpen}
+          onCancel={this.closeDeleteConfirmation}
+          onConfirm={this.deleteFile} />
       </Table.Cell>
     );
   }

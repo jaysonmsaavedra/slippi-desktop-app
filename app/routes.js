@@ -6,6 +6,7 @@ import FileLoaderPage from './containers/FileLoaderPage';
 import GameProfilePage from './containers/GameProfilePage';
 import SettingsPage from './containers/SettingsPage';
 import ConsolePage from './containers/ConsolePage';
+import StreamPage from './containers/StreamPage';
 
 export default () => (
   <App>
@@ -14,6 +15,7 @@ export default () => (
       <Route path="/settings" component={SettingsPage} />
       <Route path="/game" component={GameProfilePage} />
       <Route path="/console" component={ConsolePage} />
+      <Route path="/stream" component={StreamPage} />
       <Route path="/" component={HomePage} />
     </Switch>
   </App>

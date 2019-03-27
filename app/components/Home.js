@@ -137,6 +137,26 @@ export default class Home extends Component {
       )
     );
 
+    navigationElements.push(
+      this.generateNav(
+        'twitch',
+        'Stream',
+        'Automate your Twitch stream',
+        '/stream',
+        false
+      )
+    );
+
+    navigationElements.push(
+      this.generateNav(
+        'th list',
+        'Tournament',
+        'Automate your tournament on Smash.gg or Challonge',
+        '/tournament',
+        false
+      )
+    );
+
     return (
       <PageWrapper history={this.props.history}>
         <Container text={true} className={styles['vertical-space']}>

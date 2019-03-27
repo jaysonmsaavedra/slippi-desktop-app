@@ -1,4 +1,5 @@
 import { displayError } from './error';
+import * as fs from 'fs';
 
 export const LOAD_ROOT_FOLDER = 'LOAD_ROOT_FOLDER';
 export const CHANGE_FOLDER_SELECTION = 'CHANGE_FOLDER_SELECTION';
@@ -47,4 +48,11 @@ export function playFile(file) {
       dispatch(errorAction);
     });
   };
+}
+
+export function deleteFile(file) {
+  fs.unlink(file.fullPath, (err) => {
+    if (err) throw err;
+    console.log(`${file.fullPath} has been deleted`);
+  });
 }
